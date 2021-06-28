@@ -3,6 +3,10 @@
 header('Content-Type: text/html; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
+function set_log( $mensagem ) {
+    file_put_contents( __DIR__ . "/log.txt", date('d/m/Y H:i') ." {$mensagem} \n",  FILE_APPEND  );
+}
+
 include __DIR__ . '/Api.php';
 
 function router( $path, $action_hook ) {
@@ -33,4 +37,3 @@ router('/movimentarpecalocal', 'Api@movimentarpecalocal' );
 router('/lermovimentacaopeca', 'Api@lermovimentacaopeca' );
 router('lermotivos', 'Api@lermotivos' );
 router('/devolverpecaident', 'Api@devolverpecaident' );
-

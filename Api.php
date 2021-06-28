@@ -11,11 +11,14 @@ class Api {
         $response = json_decode($response_string_json, true);
         $host = $response[0]['HOST_REMOTO'];
         $port = $response[0]['PORTA'];
+        set_log( "LICENCA -> {$path}");
+        set_log( " URL -> http://{$host}:{$port}");
         return "http://{$host}:{$port}";
     }
     static function _welcome() {
         $welcome_base64 = $_REQUEST['dwwelcomemessage'];
         $welcome_json_string = base64_decode($welcome_base64);
+        set_log( " WELCOME -> {$welcome_json_string}" );
         $welcome = json_decode( $welcome_json_string, true );
         return $welcome;
     }
@@ -23,7 +26,10 @@ class Api {
         $welcome = Api::_welcome();
         $localizador = $welcome['localizador'];
         $host = Api::_licence($localizador);
-        echo file_get_contents( "{$host}/login?{$query_string}" );
+        $res = file_get_contents( "{$host}/login?{$query_string}" );
+        set_log( "POST -> {$host}/login?{$query_string}" );
+        set_log( "RES -> {$res}" );
+        echo $res;
     }
     static function lernomes( $query_string ) {
         $welcome = Api::_welcome();
