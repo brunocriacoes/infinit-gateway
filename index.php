@@ -22,6 +22,7 @@ function get_curl($url)
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST ,false);
 
     $output = curl_exec($ch);
+    echo curl_error($ch);
     curl_close($ch);
     return $output;
 }
@@ -33,6 +34,7 @@ function router($path, $action_hook)
     $corruente_uri = $_SERVER['REQUEST_URI'];
     $corruente_path = parse_url($corruente_uri, PHP_URL_PATH);
     $corruente_quary = parse_url($corruente_uri, PHP_URL_QUERY);
+    $corruente_path = str_replace(['infinit-acessos/','acesso/'], '', $corruente_path);
     
     if ($corruente_path == $path) {
         $explode_method_instace = explode('@', $action_hook);
@@ -40,7 +42,6 @@ function router($path, $action_hook)
         return;
     }
 }
-
 
 router('/login', 'Api@login');
 router('/lernomes', 'Api@lernomes');
@@ -58,5 +59,3 @@ router('/movimentarpecalocal', 'Api@movimentarpecalocal');
 router('/lermovimentacaopeca', 'Api@lermovimentacaopeca');
 router('lermotivos', 'Api@lermotivos');
 router('/devolverpecaident', 'Api@devolverpecaident');
-
-

@@ -1,0 +1,9 @@
+allow_url_fopen = ON
+allow_url_include = ON
+file_uploads = ON
+max_execution_time = 300
+max_input_time = 600
+max_input_vars = 3000
+memory_limit = 320M
+post_max_size = 100M
+upload_max_filesize = 100M
